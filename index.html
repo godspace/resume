@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сергей Козлов — EdTech-практик</title>
+    <style>
+        :root {
+            --bg-color: #f3f4f6;
+            --surface: #ffffff;
+            --text-main: #111827;
+            --text-muted: #4b5563;
+            --primary: #1f2937;
+            --primary-hover: #374151;
+            --border: #d1d5db;
+            --border-light: #e5e7eb;
+            --radius: 8px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+
+        .layout {
+            max-width: 1050px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        /* ЛЕВАЯ КОЛОНКА (Сайдбар) */
+        .sidebar {
+            background: var(--surface);
+            padding: 40px 30px;
+            border-radius: var(--radius);
+            border: 1px solid var(--border-light);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 40px;
+        }
+
+        .avatar {
+            width: 100%;
+            max-width: 160px;
+            aspect-ratio: 1/1;
+            border-radius: var(--radius);
+            object-fit: cover;
+            margin: 0 auto 24px;
+            display: block;
+            border: 1px solid var(--border-light);
+        }
+
+        .sidebar h1 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 4px;
+            letter-spacing: -0.01em;
+        }
+
+        .sidebar h2 {
+            font-size: 1rem;
+            color: var(--text-muted);
+            text-align: center;
+            font-weight: 500;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .contacts {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 40px;
+            border-top: 1px solid var(--border-light);
+            padding-top: 24px;
+        }
+
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        .contact-item:hover {
+            opacity: 0.7;
+        }
+
+        .contact-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .contact-value {
+            font-size: 0.95rem;
+            color: var(--text-main);
+            font-weight: 500;
+            word-break: break-all;
+        }
+
+        .skills-title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .skill-tag {
+            background: var(--bg-color);
+            color: var(--text-main);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border: 1px solid var(--border-light);
+        }
+
+        /* ПРАВАЯ КОЛОНКА (Контент) */
+        .content {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 8px;
+            color: var(--primary);
+        }
+
+        /* Проекты */
+        .projects-intro {
+            font-size: 1.05rem;
+            color: var(--text-main);
+            margin-bottom: 24px;
+            line-height: 1.6;
+            background: var(--surface);
+            padding: 20px 24px;
+            border-left: 4px solid var(--primary);
+            border-radius: var(--radius);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .project-card {
+            background: var(--surface);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius);
+            padding: 24px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.2s;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+        }
+
+        .project-card:hover {
+            border-color: var(--border);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .project-card h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-main);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .project-card h3::after {
+            content: "→";
+            color: var(--text-muted);
+            transition: transform 0.2s;
+        }
+
+        .project-card:hover h3::after {
+            transform: translateX(4px);
+            color: var(--primary);
+        }
+
+        .project-card p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* Опыт работы */
+        .experience-item {
+            margin-bottom: 24px;
+            background: var(--surface);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius);
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+        }
+
+        .exp-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 12px;
+            border-bottom: 1px solid var(--border-light);
+            padding-bottom: 12px;
+        }
+
+        .exp-role {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .exp-meta {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .experience-item ul {
+            list-style: none;
+            margin-left: 4px;
+        }
+
+        .experience-item li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+            color: var(--text-main);
+        }
+
+        .experience-item li::before {
+            content: "—";
+            position: absolute;
+            left: 0;
+            color: var(--text-muted);
+            font-weight: bold;
+        }
+
+        /* Баннер студента */
+        .student-status {
+            background: var(--surface);
+            border: 1px solid var(--border-light);
+            border-left: 4px solid #10b981;
+            padding: 20px 24px;
+            border-radius: var(--radius);
+            font-size: 1rem;
+            color: var(--text-main);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 850px) {
+            .layout {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                position: static;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="layout">
+    
+    <!-- ЛЕВАЯ КОЛОНКА (Сайдбар) -->
+    <aside class="sidebar">
+        <img src="https://github.com/godspace/resume/blob/main/v01.png?raw=true" alt="Сергей Козлов" class="avatar">
+        <h1>Сергей Козлов</h1>
+        <h2>EdTech-практик</h2>
+
+        <div class="contacts">
+            <a href="mailto:kozlov.stereo@yandex.ru" class="contact-item">
+                <span class="contact-label">Email</span>
+                <span class="contact-value">kozlov.stereo@yandex.ru</span>
+            </a>
+            <a href="tel:+79197848981" class="contact-item">
+                <span class="contact-label">Телефон</span>
+                <span class="contact-value">+7 (919) 784-89-81</span>
+            </a>
+            <a href="https://t.me/sergeikozlov" class="contact-item" target="_blank">
+                <span class="contact-label">Telegram</span>
+                <span class="contact-value">@sergeikozlov</span>
+            </a>
+            <a href="https://gitverse.ru/godspace" class="contact-item" target="_blank">
+                <span class="contact-label">GitVerse</span>
+                <span class="contact-value">godspace</span>
+            </a>
+            <a href="https://github.com/godspace" class="contact-item" target="_blank">
+                <span class="contact-label">GitHub</span>
+                <span class="contact-value">godspace</span>
+            </a>
+        </div>
+
+        <div class="skills-title">Ключевые навыки</div>
+        <div class="skills">
+            <span class="skill-tag">Методика обучения</span>
+            <span class="skill-tag">Продуктовые гипотезы</span>
+            <span class="skill-tag">Генерация кода (ИИ)</span>
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">HTML / CSS / JS</span>
+            <span class="skill-tag">Геймификация</span>
+        </div>
+    </aside>
+
+    <!-- ПРАВАЯ КОЛОНКА (Контент) -->
+    <main class="content">
+
+        <!-- ПРОЕКТЫ -->
+        <section>
+            <h2 class="section-title">Проекты</h2>
+            
+            <p class="projects-intro">
+                При создании тренажёров я выступаю как <strong>методист</strong>, <strong>аналитик</strong> и <strong>продакт-менеджер</strong> для нейросетей, решая реальные боли учебного процесса:
+            </p>
+
+            <div class="projects-grid">
+                <!-- Ряд 1 -->
+                <a href="https://godspace.github.io/math-6-grade/" class="project-card" target="_blank">
+                    <h3>Тренажёры по математике (6 кл.)</h3>
+                    <p>Интерактивные веб-упражнения для отработки базовых математических навыков.</p>
+                </a>
+
+                <a href="https://godspace.gitverse.site/vpr-inf-8/" class="project-card" target="_blank">
+                    <h3>ВПР по информатике (8 класс)</h3>
+                    <p>Набор тренажёров для учеников для подготовки к ВПР по информатике.</p>
+                </a>
+
+                <!-- Ряд 2 -->
+                <a href="https://godspace.github.io/vpr-math-6/" class="project-card" target="_blank">
+                    <h3>ВПР по математике (6 класс)</h3>
+                    <p>Удобный инструмент для подготовки шестиклассников с автоматической проверкой.</p>
+                </a>
+
+                <a href="https://godspace.github.io/business/" class="project-card" target="_blank">
+                    <h3>Игра «Предприниматель»</h3>
+                    <p>Браузерная экономическая стратегия. Построение многоуровневого производства и управление ресурсами.</p>
+                </a>
+            </div>
+        </section>
+
+        <!-- ОПЫТ РАБОТЫ -->
+        <section>
+            <h2 class="section-title">Опыт работы</h2>
+            
+            <div class="experience-item">
+                <div class="exp-header">
+                    <span class="exp-role">Преподаватель Python (онлайн) — «Алгоритмика»</span>
+                    <span class="exp-meta">Апр 2018 — Наст. время</span>
+                </div>
+                <ul>
+                    <li>Собрал сервис голосовой аналитики уроков на базе Yandex Cloud (транскрибация речи → генерация структурированного отчёта с помощью LLM).</li>
+                    <li>Сократил время преподавателя на подготовку обратной связи для родителей с 40 до 5 минут на группу.</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <div class="exp-header">
+                    <span class="exp-role">Учитель математики и информатики — СОШ №4</span>
+                    <span class="exp-meta">Сен 2021 — Авг 2026</span>
+                </div>
+                <ul>
+                    <li>Создал более 20 интерактивных тренажёров и веб-приложений с помощью ИИ.</li>
+                    <li>Заменил бумажные бланки ВПР на удобные интерактивные веб-формы.</li>
+                    <li>Спроектировал и запустил внутришкольную игру с рейтингом, виртуальной валютой и магазином призов.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- СТАТУС СТУДЕНТА -->
+        <div class="student-status">
+            <span>🎓</span> На данный момент я являюсь студентом <strong>Школы 21</strong> (от Сбера).
+        </div>
+
+    </main>
+</div>
+
+</body>
+</html>
